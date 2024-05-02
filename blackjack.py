@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import random
+import os
 
 logo = """
 .------.            _     _            _    _            _    
@@ -13,78 +14,84 @@ logo = """
       `------'                           |__/           
 """
 
-print(logo)
+def draw_cards():
+    # Predefined Deck of cards
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
-# Initialize global variables
-player_cards = []
-dealer_cards = []
+    return random.choice(cards)
 
-# Predefined Deck of cards
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+def calculate_score(cards):
+    # BlackJack
+    if sum(cards) == 21 and len(cards) ==2:
+        return 0
+    elif sum(cards) > 21 and 11 in cards:
+        cards.remove(11)
+        cards.append(1)
 
-def draw_cards(deal,cards_sum):
-    if deal:
-        while len(dealer_cards) < 2:
-            player_cards.append(cards[random.randrange(len(cards))])
-            dealer_cards.append(cards[random.randrange(len(cards))])
+    return sum(cards)
+
+def find_winner(user_score,computer_score):
+    if user_score == computer_score:
+        return("\nIt's a draw!")
+    elif computer_score == 0:
+        return("\nLose, Dealer has a BlackJack.")
+    elif user_score == 0:
+        return("\nCongratualations! You have a BlackJack.")
+    elif user_score > 21:
+        return("\nDealer wins!")
+    elif computer_score > 21:
+        return("\nCongratualations! You won.")
+    elif user_score > computer_score:
+        return("\nCongratualations! You won.")
     else:
-        player_cards.append(cards[random.randrange(len(cards))])
-
-        if cards_sum < 17:
-            dealer_cards.append(cards[random.randrange(len(cards))])
-
-def sum_of_cards(list_cards,list_cards_sum,player):
-    list_cards.sort()
-    for list_card in list_cards:
-        if list_card == 11 and list_cards_sum > 10 and player:
-            list_cards_sum += 1
-        else:
-            list_cards_sum += list_card
-    return list_cards_sum
-
-def find_winner(player_cards,dealer_cards):
-    if player_cards > 21:
-        print("\nDealer wins!")
-    elif player_cards == dealer_cards:
-        print("\nIt's a draw!")
-    elif player_cards < 21 and dealer_cards > 21:
-        print("\nCongratualations! You won.")
-    elif player_cards > dealer_cards:
-        print("\nCongratualations! You won.")
-    else:
-        print("\nDealer wins!")
+        return("\nDealer wins!")
 
 def blackjack():
-    # Local variables
-    player_cards_sum = 0
-    dealer_cards_sum = 0
+    player_cards = []
+    dealer_cards = []
+    is_game_over = False
 
-    play = input("Do you want to play a game of BlackJack? Type 'y' or 'n': ")
+    print(logo)
 
-    if play == "y":
-        draw_cards(deal=True,cards_sum=dealer_cards_sum)
-        print(f"\nYour's first hand: {player_cards}")
-        print(f"Dealer's first hand: {dealer_cards[0]}")
+    for _ in range(2):
+        player_cards.append(draw_cards())
+        dealer_cards.append(draw_cards())
 
-        dealer_cards_sum = sum_of_cards(list_cards=dealer_cards,list_cards_sum=dealer_cards_sum,player=False)
+    while not is_game_over:
+        print(f"\nYour's hand: {player_cards}")
+        print(f"Dealer's hand: {dealer_cards[0]}")
+        player_score = calculate_score(player_cards)
+        dealer_score = calculate_score(dealer_cards)
 
-        another_card = input("Type 'y' to get another card, type 'n' to pass: ")
+        if player_score == 0 or dealer_score == 0 or player_score > 21:
+            is_game_over = True
+        else:
+            another_card = input("Type 'y' to get another card, type 'n' to pass: ")
 
-        if another_card == 'y':
-            draw_cards(deal=False,cards_sum=dealer_cards_sum)
-            dealer_cards_sum += dealer_cards[2]
+            if another_card == 'y':
+                player_cards.append(draw_cards())
+            else:
+                is_game_over = True
 
-        player_cards_sum = sum_of_cards(list_cards=player_cards,list_cards_sum=player_cards_sum,player=True)
+    while dealer_score != 0 and dealer_score < 17:
+        dealer_cards.append(draw_cards())
+        dealer_score = calculate_score(dealer_cards)
 
-        print(f"\nYour's final hand: {player_cards}")
-        print(f"Dealer's final hand: {dealer_cards}")
+    print(f"\nYour's final hand: {player_cards}")
+    print(f"Dealer's final hand: {dealer_cards}")
 
-        find_winner(player_cards=player_cards_sum,dealer_cards=dealer_cards_sum)
+    print(find_winner(user_score=player_score,computer_score=dealer_score))
 
-    elif play == "n":
+def continue_play():
+    want_to_play = input("Do you want to play a game of BlackJack? Type 'y' or 'n': ")
+
+    if want_to_play == "y":
+        os.system("clear")
+        blackjack()
+    elif want_to_play == "n":
         print("\nGood Bye!")
     else:
         print("\nOops! Invalid choice.")
-        blackjack()
+        continue_play()
 
-blackjack()
+continue_play()
