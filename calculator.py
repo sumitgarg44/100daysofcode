@@ -28,6 +28,7 @@ def divide (n1, n2):
     return n1 / n2
 
 def calculator():
+    print(logo)
     f_num = float(input("What's the first number?: "))
     operation = {
         "+": add,
