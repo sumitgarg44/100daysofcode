@@ -75,8 +75,7 @@ else:
     print(images[user_choice])
 
     computer_choice = random.randint(0,2)
-    print(f"\nComputer chooses:")
-    print(images[computer_choice])
+    print(f"\nComputer chooses:\n{images[computer_choice]}")
 
     if user_choice == 0 and computer_choice == 2:
       print(win)
