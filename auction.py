@@ -1,20 +1,7 @@
 import os
+from static.arts import auction_art
 
-logo = '''
-                         ___________
-                         \         /
-                          )_______(
-                          |"""""""|_.-._,.---------.,_.-._
-                          |       | | |               | | ''-.
-                          |       |_| |_             _| |_..-'
-                          |_______| '-' `'---------'` '-'
-                          )"""""""(
-                         /_________\\
-                       .-------------.
-                      /_______________\\
-'''
-
-print(f"{logo}\n\nWelcome to the secret auction program.")
+print(f"{auction_art.logo}\n\nWelcome to the secret auction program.")
 
 bids = {}
 is_continue = True

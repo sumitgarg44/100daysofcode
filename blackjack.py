@@ -2,17 +2,7 @@
 
 import random
 import os
-
-logo = """
-.------.            _     _            _    _            _    
-|A_  _ |.          | |   | |          | |  (_)          | |   
-|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
-| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
-|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
-`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
-      |  \/ K|                            _/ |                
-      `------'                           |__/           
-"""
+from static.arts import black_jack
 
 def draw_cards():
     # Predefined Deck of cards
@@ -51,7 +41,7 @@ def blackjack():
     dealer_cards = []
     is_game_over = False
 
-    print(logo)
+    print(black_jack.logo)
 
     for _ in range(2):
         player_cards.append(draw_cards())

@@ -1,7 +1,7 @@
 import random
 
-from hangman_arts import game_over,logo,stages
-from hangman_words import word_list
+from static.arts import gameover, hangman
+from static.hangman_words import word_list
 
 class color:
    PURPLE = '\033[95m'
@@ -21,7 +21,7 @@ word_length = len(chosen_word)
 
 lives = 6
 
-print(color.BLUE + logo + color.END)
+print(color.BLUE + hangman.logo + color.END)
 
 display = []
 for _ in range(word_length):
@@ -46,7 +46,7 @@ while not end_of_game:
         print(f"\n{color.RED} Letter {guess} not in the word. You lose a life.{color.END}")
         lives -= 1
         if lives == 0:
-            print(f"\n{game_over}")
+            print(f"\n{gameover.logo}")
             end_of_game = True
             print(f"{color.CYAN} Correct word is: {chosen_word}{color.END}")
 
@@ -56,4 +56,4 @@ while not end_of_game:
         print(f"\n{color.GREEN} Congratulations! You have won.{color.END}")
         end_of_game = True
 
-    print(color.RED + stages[lives] + color.END)
+    print(color.RED + hangman.stages[lives] + color.END)
