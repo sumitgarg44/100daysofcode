@@ -1,4 +1,4 @@
-import os
+from helpers.clear_screen import clear_screen
 from static.arts import auction_art
 
 print(f"{auction_art.logo}\n\nWelcome to the secret auction program.")
@@ -27,5 +27,6 @@ while is_continue:
         highest_bid(bids)
     else:
         is_continue = True
-        os.system('clear')
+        clear_screen()
+        print(auction_art.logo)
 

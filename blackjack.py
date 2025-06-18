@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import random
-import os
+from helpers.clear_screen import clear_screen
 from static.arts import black_jack
 
 def draw_cards():
@@ -76,7 +76,7 @@ def continue_play():
     want_to_play = input("Do you want to play a game of BlackJack? Type 'y' or 'n': ")
 
     if want_to_play == "y":
-        os.system("clear")
+        clear_screen()
         blackjack()
     elif want_to_play == "n":
         print("\nGood Bye!")
