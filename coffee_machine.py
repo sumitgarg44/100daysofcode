@@ -8,18 +8,12 @@ is_on = True
 def report_resources(current=True):
     """Print current resources"""
     for resource in resources:
-        if isinstance(resources[resource], list):
-            if current:
-                print(f"{resource}: ${resources[resource][1]}")
-            else:
-                print(f"{resource}: ${resources[resource][0]}")
+        if resource == "money":
+            print(f"{resource}: ${resources[resource]}")
+        elif resource == "coffee":
+            print(f"{resource}: {resources[resource]}g")
         else:
-            if resource == "money":
-                print(f"{resource}: ${resources[resource]}")
-            elif resource == "coffee":
-                print(f"{resource}: {resources[resource]}g")
-            else:
-                print(f"{resource}: {resources[resource]}ml")
+            print(f"{resource}: {resources[resource]}ml")
 
 
 def have_enough_resources(flavor):
@@ -53,11 +47,7 @@ def is_transaction_successful(flavor, amount):
     """
     req_amount = menu[flavor]["cost"]
     if amount >= req_amount:
-        if isinstance(resources["money"], list):
-            resources["money"][0] = resources["money"][1]
-            resources["money"][1] = resources["money"][1] + req_amount
-        else:
-            resources["money"] = [resources["money"], req_amount]
+        resources["money"] = resources["money"] + req_amount
         refund = round((amount - req_amount), 2)
         return refund
     else:
@@ -66,16 +56,11 @@ def is_transaction_successful(flavor, amount):
 
 def make_coffee(flavor):
     """It makes coffee"""
-    print(f"\n{color.DARKCYAN}Report before purchasing {flavor}:{color.END}")
-    report_resources(current=False)
-
     for ingredient in menu[flavor]["ingredients"]:
         resources[ingredient] = (
             resources[ingredient] - menu[flavor]["ingredients"][ingredient]
         )
 
-    print(f"\n{color.DARKCYAN}Report after purchasing {flavor}:{color.END}")
-    report_resources(current=True)
     print(
         f"\n{color.BOLD}{color.PURPLE}Here is your {flavor} {coffee_emoji}. Enjoy!{color.END}"
     )
