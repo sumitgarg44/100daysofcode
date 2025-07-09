@@ -1,0 +1,1 @@
+coffee_emoji = "☕"
