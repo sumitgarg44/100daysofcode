@@ -5,7 +5,7 @@ import html
 import requests
 
 
-def generate_questions(total_questions=10, level="medium"):
+def generate_questions(total_questions, level):
     """Generate questions from Open Trivia DB"""
     tdb_api = (
         f"https://opentdb.com/api.php?amount={total_questions}&"

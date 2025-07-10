@@ -18,7 +18,8 @@ if USER_CHOICE.lower() == "yes":
     )
     print()  # To add newline for better readability
 else:
-    question_data = generate_questions()
+    print("User opted for default values: 10 questions and Medium difficulty level")
+    question_data = generate_questions(total_questions=10, level="medium")
     print()  # To add newline for better readability
 
 if question_data:
