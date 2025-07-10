@@ -1,4 +1,4 @@
-from static.colors import color
+from helpers.colors import color
 from static.arts import gameover, treasure
 
 print(color.PURPLE + treasure.logo + color.END)

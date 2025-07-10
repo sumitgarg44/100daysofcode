@@ -1,8 +1,8 @@
 import random
 
-from static.colors import color
+from helpers.colors import color
 from static.arts import gameover, hangman
-from static.hangman_words import word_list
+from static.hangman.words import word_list
 
 chosen_word = random.choice(word_list)
 

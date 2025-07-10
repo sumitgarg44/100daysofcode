@@ -1,6 +1,6 @@
 from static.arts.coffee_machine_art import coffee_emoji
-from static.coffee_machine_const import coins, menu, resources
-from static.colors import color
+from static.coffee_machine.constants import coins, menu, resources
+from helpers.colors import color
 
 is_on = True
 

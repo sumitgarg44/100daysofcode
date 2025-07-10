@@ -1,7 +1,7 @@
 import random
 from helpers.clear_screen import clear_screen
-from static.colors import color
-from static.higher_lower_data import data
+from helpers.colors import color
+from static.higher_lower.data import data
 from static.arts.higher_lower_art import logo, versus
 
 # variables
