@@ -4,8 +4,10 @@ from turtle import Turtle
 
 FONT = ("Arial", 48, "normal")
 
+
 class ScoreBoard(Turtle):
     """Base class"""
+
     def __init__(self, position):
         super().__init__()
         self.score = 0
@@ -14,14 +16,13 @@ class ScoreBoard(Turtle):
         self.penup()
         self.setposition(position)
         self.update_score()
-    
+
     def update_score(self):
+        """Updates Score"""
         self.clear()
         self.write(f"{self.score}", font=FONT)
 
     def increment_score(self):
+        """Increment Score"""
         self.score += 1
         self.update_score()
-
-
-        

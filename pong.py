@@ -34,10 +34,15 @@ while is_game_on:
 
     if BALL.ycor() > 280 or BALL.ycor() < -280:
         BALL.bounce_y()
-    
-    if BALL.distance(r_paddle) < 50 and BALL.xcor() > 330 or BALL.distance(l_paddle) < 50 and BALL.xcor() < -330:
+
+    if (
+        BALL.distance(r_paddle) < 50
+        and BALL.xcor() > 330
+        or BALL.distance(l_paddle) < 50
+        and BALL.xcor() < -330
+    ):
         BALL.bounce_x()
-    
+
     if BALL.xcor() > 380:
         BALL.reset_position()
         l_score.increment_score()
@@ -45,5 +50,5 @@ while is_game_on:
     if BALL.xcor() < -380:
         BALL.reset_position()
         r_score.increment_score()
-    
+
 SCREEN.exitonclick()

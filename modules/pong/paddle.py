@@ -2,8 +2,10 @@
 
 from turtle import Turtle
 
+
 class Paddle(Turtle):
     """Base class"""
+
     def __init__(self, position):
         super().__init__()
         self.shape("square")
@@ -16,13 +18,11 @@ class Paddle(Turtle):
     def move_up(self):
         """Move paddle up"""
         if self.ycor() < 240:
-           new_ycor = self.ycor() + 20
-           self.sety(new_ycor)
+            new_ycor = self.ycor() + 20
+            self.sety(new_ycor)
 
     def move_down(self):
         """Move paddle down"""
         if self.ycor() > -240:
-           new_ycor = self.ycor() - 20
-           self.sety(new_ycor)
-
-
+            new_ycor = self.ycor() - 20
+            self.sety(new_ycor)
