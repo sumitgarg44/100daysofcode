@@ -30,13 +30,8 @@ SCREEN.onkey(SNAKE.right, "Right")
 SCREEN.onkey(SNAKE.left, "Left")
 
 while GAME_IS_ON:
+    time.sleep(FOOD.snake_speed)
     SCREEN.update()
-    if SCOREBOARD.score < 5:
-        time.sleep(0.3)
-    elif SCOREBOARD.score < 10:
-        time.sleep(0.2)
-    else:
-        time.sleep(0.1)
     SNAKE.move()
 
     # Detect collison with food

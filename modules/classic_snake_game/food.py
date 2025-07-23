@@ -3,6 +3,8 @@
 import random
 from turtle import Turtle
 
+SNAKE_SPEED = 0.3
+
 
 class Food(Turtle):
     """Snake Food"""
@@ -13,7 +15,7 @@ class Food(Turtle):
         self.penup()
         self.shapesize(stretch_len=0.5, stretch_wid=0.5)
         self.color("blue")
-        self.speed("fastest")
+        self.snake_speed = SNAKE_SPEED
         self.refresh()
 
     def refresh(self):
@@ -21,3 +23,4 @@ class Food(Turtle):
         random_x = random.randint(-280, 280)
         random_y = random.randint(-280, 280)
         self.setposition(random_x, random_y)
+        self.snake_speed *= 0.9

@@ -3,7 +3,7 @@
 from turtle import Turtle
 
 start_positions = [(0, 0), (-20, 0), (-40, 0)]
-move_distance = 20
+MOVE_DISTANCE = 20
 UP = 90
 DOWN = 270
 RIGHT = 0
@@ -43,7 +43,7 @@ class Snake:
         for snake_num in range(len(self.body) - 1, 0, -1):
             new_position = self.body[snake_num - 1].position()
             self.body[snake_num].setposition(new_position)
-        self.head.forward(move_distance)
+        self.head.forward(MOVE_DISTANCE)
 
     def up(self):
         """Snake moves up"""
