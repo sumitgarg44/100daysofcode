@@ -47,13 +47,13 @@ while GAME_IS_ON:
         or SNAKE.head.ycor() >= 300
         or SNAKE.head.ycor() <= -300
     ):
-        GAME_IS_ON = False
-        SCOREBOARD.game_over()
+        SCOREBOARD.reset()
+        SNAKE.reset_snake()
 
     # Detect collison of snake head with body
     for body in SNAKE.body[1:]:
         if SNAKE.head.distance(body) < 10:
-            GAME_IS_ON = False
-            SCOREBOARD.game_over()
+            SCOREBOARD.reset()
+            SNAKE.reset_snake()
 
 SCREEN.exitonclick()

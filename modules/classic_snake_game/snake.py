@@ -38,6 +38,14 @@ class Snake:
         """Add new part to Snake body"""
         self.new_part(self.body[-1].position())
 
+    def reset_snake(self):
+        """Reset snake"""
+        for body in self.body:
+            body.setposition(1000, 1000)
+        self.body.clear()
+        self.create_snake()
+        self.head = self.body[0]
+
     def move(self):
         """Move snake"""
         for snake_num in range(len(self.body) - 1, 0, -1):
