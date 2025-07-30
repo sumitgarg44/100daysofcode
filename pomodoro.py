@@ -2,6 +2,8 @@
 
 import tkinter
 import math
+import sys
+import os
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -9,11 +11,22 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 1
-LONG_BREAK_MIN = 1
+WORK_MIN = 35
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 REPS = 0
 TIMER = None
+IMAGE = "static/pomodoro/tomato.png"
+
+
+# ---------------------------- Get Absoluete Path ------------------------------- #
+def resource_path(relative_path):
+    """Converts relative to absoluete path"""
+    if hasattr(sys, "_MEIPASS"):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -56,6 +69,7 @@ def start_timer(
         timer_label.config(text="Work")
         window.lift()
 
+
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def count_down(count):
     """Initiate count down"""
@@ -95,7 +109,7 @@ timer_label = tkinter.Label(
 )
 timer_label.grid(row=0, column=1)
 
-tomato_img = tkinter.PhotoImage(file="static/pomodoro/tomato.png")
+tomato_img = tkinter.PhotoImage(file=resource_path(IMAGE))
 canvas = tkinter.Canvas(width=205, height=224, bg=YELLOW, bd=0, highlightthickness=0)
 canvas.create_image(103, 112, image=tomato_img)
 timer_canvas = canvas.create_text(
