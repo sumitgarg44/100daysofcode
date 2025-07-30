@@ -48,12 +48,14 @@ while GAME_IS_ON:
         or SNAKE.head.ycor() <= -300
     ):
         SCOREBOARD.reset()
+        FOOD.reset_speed()
         SNAKE.reset_snake()
 
     # Detect collison of snake head with body
     for body in SNAKE.body[1:]:
         if SNAKE.head.distance(body) < 10:
             SCOREBOARD.reset()
+            FOOD.reset_speed()
             SNAKE.reset_snake()
 
 SCREEN.exitonclick()

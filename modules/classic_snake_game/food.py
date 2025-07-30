@@ -24,3 +24,7 @@ class Food(Turtle):
         random_y = random.randint(-280, 280)
         self.setposition(random_x, random_y)
         self.snake_speed *= 0.9
+
+    def reset_speed(self):
+        """Reset snake speed"""
+        self.snake_speed = SNAKE_SPEED
