@@ -91,12 +91,12 @@ def count_down(count):
         global TIMER
         TIMER = window.after(1000, count_down, count - 1)
     else:
-        start_timer()
         marks = ""
-        work_sessions = math.floor(REPS / 3)
+        work_sessions = math.floor(REPS / 2)
         for _ in range(work_sessions):
             marks += "✔"
         check_marks.config(text=marks)
+        start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
