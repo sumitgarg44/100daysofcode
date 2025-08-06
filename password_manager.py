@@ -1,5 +1,6 @@
 """Password Manager"""
 
+import json
 import os
 import sys
 import tkinter
@@ -9,7 +10,7 @@ from tkinter import messagebox
 import pyperclip
 
 LOGO = "static/arts/password_manager/logo.png"
-DATA_FILE = "/home/sumi6119/password_data.txt"
+DATA_FILE = "/home/sumi6119/password_data.json"
 
 
 # ---------------------------- Get Absoluete Path ------------------------------- #
@@ -103,26 +104,60 @@ def generate_password():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
     """Save Password"""
-    website = website_entry.get()
+    website = website_entry.get().lower()
     email = email_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            "email": email,
+            "password": password,
+        }
+    }
 
     if len(website) == 0 or len(password) == 0:
         messagebox.showwarning(
             title=website, message="Please make sure you haven't left any field empty!"
         )
     else:
-        is_ok = messagebox.askokcancel(
-            title=website,
-            message=f"These are the details entered: \n\nEmail: {email}\n"
-                f"Password: {password}\n\nIs it ok to save?",
-        )
+        try:
+            with open(DATA_FILE, mode="r", encoding="utf-8") as data:
+                json_data = json.load(data)
+                json_data.update(new_data)
+        except FileNotFoundError:
+            with open(DATA_FILE, mode="w", encoding="utf-8") as data:
+                json.dump(new_data, data, indent=4)
+        except json.decoder.JSONDecodeError:
+            with open(DATA_FILE, mode="w", encoding="utf-8") as data:
+                json.dump(new_data, data, indent=4)
+        else:
+            with open(DATA_FILE, mode="w", encoding="utf-8") as data:
+                json.dump(json_data, data, indent=4)
+        finally:
+            website_entry.delete(0, tkinter.END)
+            password_entry.delete(0, tkinter.END)
 
-        if is_ok:
-            with open(DATA_FILE, mode="a", encoding="utf-8") as data:
-                data.write(f"{website} | {email} | {password}\n")
-                website_entry.delete(0, tkinter.END)
-                password_entry.delete(0, tkinter.END)
+
+# ---------------------------- Search Password ------------------------------- #
+def find_website():
+    """Find website"""
+    website = website_entry.get().lower()
+
+    try:
+        with open(DATA_FILE, mode="r", encoding="utf-8") as data:
+            json_data = json.load(data)
+            ret_website = json_data[website]
+    except FileNotFoundError:
+        messagebox.showwarning(title=website, message="No password store found!")
+    except json.decoder.JSONDecodeError:
+        messagebox.showwarning(title=website, message=f"Can't find {website}!")
+    except KeyError:
+        messagebox.showwarning(title=website, message=f"Can't find {website}!")
+    else:
+        email = ret_website["email"]
+        password = ret_website["password"]
+        messagebox.showinfo(
+            title=website, message=f"Email: {email}\nPassword: {password}"
+        )
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -144,9 +179,9 @@ password_label = tkinter.Label(text="Password:", bg="white", highlightthickness=
 password_label.grid(row=3, column=0)
 
 # Entries
-website_entry = tkinter.Entry(width=40)
+website_entry = tkinter.Entry(width=21)
 website_entry.focus()
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry.grid(row=1, column=1)
 email_entry = tkinter.Entry(width=40)
 email_entry.grid(row=2, column=1, columnspan=2)
 email_entry.insert(0, "sumitgarg44@gmail.com")
@@ -165,5 +200,9 @@ add_button = tkinter.Button(
     text="Add", width=40, bg="white", highlightthickness=0, command=save
 )
 add_button.grid(row=4, column=1, columnspan=2)
+search_button = tkinter.Button(
+    text="Search", width=14, bg="white", highlightthickness=0, command=find_website
+)
+search_button.grid(row=1, column=2, columnspan=2)
 
 window.mainloop()
