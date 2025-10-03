@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Add Release{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="mx-auto" style="max-width: 600px;">
+    <h1 class="text-center mb-4 text-white text-italic bg-primary fst-italic">
+      Add a Release
+    </h1>
+    <div class="border rounded-3 p-4 shadow-sm bg-white">
+      {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+  </div>
+</div>
+{% endblock %}

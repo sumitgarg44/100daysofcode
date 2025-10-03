@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Movie{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="heading">Select Release</h1>
+    {% if releases %}
+      {% for release in releases %}
+        <p>
+          <form method="POST" action="{{ url_for('add', release_id=release.id) }}" class="d-inline">
+            <button type="submit"
+                    class="btn btn-link p-0
+                          link-offset-2 link-offset-3-hover
+                          link-underline link-underline-opacity-0
+                          link-underline-opacity-75-hover">
+              {{ release.title }} - {{ release.release_date }}
+            </button>
+          </form>
+        </p>
+      {% endfor %}
+    {% else %}
+      <p class="text-danger text-center">No releases found</p>
+    {% endif %}
+</div>
+{% endblock %}

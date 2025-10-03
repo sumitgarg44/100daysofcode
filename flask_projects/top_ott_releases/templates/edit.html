@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Edit Release Rating{% endblock %}
+
+{% block content %}
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container py-5">
+  <div class="mx-auto" style="max-width: 600px;">
+    <h2 class="text-center mb-4 text-white text-italic bg-primary fst-italic">
+      {{ release.title }}
+    </h2>
+    <p class="text-muted text-center mb-2">
+      Current rating: <span class="fw-bold">{{ release.rating }}</span>
+    </p>
+    <p class="text-muted text-center mb-4">
+      Current review: <span class="fw-bold">{{ release.review }}</span>
+    </p>
+    <div class="border rounded-3 p-4 shadow-sm bg-white">
+      {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+  </div>
+</div>
+{% endblock %}

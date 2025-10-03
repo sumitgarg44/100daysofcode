@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}My Top 10 OTT Releases{% endblock %}
+
+{% block content %}
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container m">
+  <h1 class="heading">My Top 10 OTT Releases</h1>
+  <p class="description">These are my all-time favourite releases.</p>
+  
+  {% if releases %}
+    {% for release in releases %}
+      <div class="card" >
+        <div class="front" style="background-image: url('{{ release.img_url }}');">
+            <p class="large">{{ loop.revindex }}</p>
+        </div>
+        <div class="back">
+          <div>
+        <div class="title">{{ release.title }} <span class="release_date">({{ release.year }})</span></div>
+            <div class="rating">
+                <label>{{ release.rating }}</label>
+              <i class="fas fa-star star"></i>
+            </div>
+              <p class="review">"{{ release.review }}"</p>
+            <p class="overview">
+                {{ release.description }}
+            </p>
+
+            <a href="{{ url_for('edit', release_id=release.id) }}" class="button">Update</a>
+            <form action="{{ url_for('delete', release_id=release.id) }}" method="POST" class="d-inline">
+              <button type="submit" class="button delete-button"
+                onclick="return confirm('Are you sure you want to delete - {{ release.title }}?');">
+                Delete
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-danger text-center">No releases found</p>
+  {% endif %}
+</div>
+<div class="container text-center add pb-5">
+<a href="{{ url_for('find') }}" class="button">Add new release</a>
+</div>
+
+{% endblock %}
